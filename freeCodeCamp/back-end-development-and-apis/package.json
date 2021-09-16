@@ -2,6 +2,7 @@
 	"author": "Antonio Cirillo",
 	"description": "Back end development and apis",
 	"keywords": ["freecodecamp", "back-end", "apis"],
+	"license": "MIT",
 	"name": "fcc-learn-npm-package-json",
 	"dependencies": {
 		"express": "^4.14.0"
