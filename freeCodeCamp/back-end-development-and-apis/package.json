@@ -1,6 +1,7 @@
 {
 	"author": "Antonio Cirillo",
 	"description": "Back end development and apis",
+	"keywords": ["freecodecamp", "back-end", "apis"],
 	"name": "fcc-learn-npm-package-json",
 	"dependencies": {
 		"express": "^4.14.0"
