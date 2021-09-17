@@ -20,14 +20,10 @@ app.get("/", function (req, res) {
 
 
 // your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
-});
-
-const handler = (req, res) => {
+app.get("/api/:date", (req, res) => {
   const data = req.params.date;
   console.log(data);
-  if(/\d{13}/.test(data))
+  if(/\d{5,}/.test(data))
       res.json({ unix: parseInt(data), utc: new Date(parseInt(data)).toGMTString() });
     else {
       const flag = Date.parse(data);
@@ -35,23 +31,15 @@ const handler = (req, res) => {
         res.json({error: 'Invalid Date'});
       else {
         const dataValue = new Date(data);
-        if(/\s/.test(data))
-          dataValue.setTime(dataValue.getTime() + (2*60*60*1000));
-        console.log({ unix: parseInt(dataValue.getTime()), utc: dataValue.toGMTString() });
         res.send({ unix: parseInt(dataValue.getTime()), utc: dataValue.toGMTString() });
       }
     }
-}
+});
 
-const handler_2 = (req, res) => {
+app.get("/api", (req, res) => {
   const now = new Date();
-  console.log({ unix: parseInt(now.getTime()), utc: now.toGMTString() })
   res.json({ unix: parseInt(now.getTime()), utc: now.toGMTString() });
-}
-
-app.route('/api/:date').get(handler).post(handler);
-app.route('/api').get(handler_2).post(handler_2);
-
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
