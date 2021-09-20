@@ -2,6 +2,8 @@
 require('dotenv').config();
 const express = require('express');
 const myDB = require('./connection');
+const routes = require('./routes');
+const auth = require('./auth');
 const fccTesting = require('./freeCodeCamp/fcctesting.js');
 const session = require('express-session');
 const passport = require('passport');
@@ -22,9 +24,20 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.route('/').get((req, res) => {
-  res.render(__dirname + '/views/pug', {title: 'Hello', message: 'Please login'});
-});
+myDB(async client => {
+  const myDataBase = await client.db('database').collection('users');
+
+  routes(app, myDataBase);
+  auth(app, myDataBase);
+
+}).catch(e => {
+  app.route('/').get((req, res) => {
+    res.render(__dirname + '/views/pug', {
+      title: e, 
+      message: 'Unable to login'
+    });
+  })
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
