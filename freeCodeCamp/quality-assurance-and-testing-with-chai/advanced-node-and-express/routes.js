@@ -1,6 +1,5 @@
 const passport = require('passport');
 
-
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
@@ -24,9 +23,17 @@ module.exports = function(app, myDataBase) {
     
     app.route('/auth/github').get(passport.authenticate('github'));
 
-    app.route('/auth/github/callback').get(passport.authenticate('github', { failureRedirect: '/' }), (req, res) => 
-        res.redirect('/profile')
-    );
+    app.route('/auth/github/callback').get(passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
+        req.session.user_id = req.user.id;
+        res.redirect('/chat')
+    });
+
+    app.route('/chat')
+        .get(ensureAuthenticated, (req, res) => {
+            res.render(___dirname + '/views/pug/chat', {
+                user: req.user
+            })
+        })
 
     app.route('/profile')
         .get(ensureAuthenticated, (req, res) => {
