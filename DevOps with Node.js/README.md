@@ -16,9 +16,17 @@ docker ps [-a]?
 ```
 Comando per eseguire un'immagine.
 ```
-docker run [-d]? [-p portaEsterna:portaInterna] [--name container-name]? image-name
+docker run [-d]? [-v "path"[:"path"]?]? [-p portaEsterna:portaInterna] [--name container-name]? image-name
 ```
 Comando per rimuovere un container.
 ```
 docker rm container-name [-f]?
+```
+Comando per visualizzare i log di un container.
+```
+docker logs container-name
+```
+Comando per eseguire bash sul container.
+```
+docker exec -it container-name bash
 ```
