@@ -34,6 +34,10 @@ Comando per eseguire il container tramite docker-compose.
 ```
 docker-compose up -d
 ```
+Comando per eseguire un container tramite docker-compose con diversi file di configurazione.
+```
+docker-compose [-f file]+ up -d
+```
 Comando per eliminare il container e i volumi.
 ```
 docker-compose down -v
