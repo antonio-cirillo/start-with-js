@@ -30,3 +30,11 @@ Comando per eseguire bash sul container.
 ```
 docker exec -it container-name bash
 ```
+Comando per eseguire il container tramite docker-compose.
+```
+docker-compose up -d
+```
+Comando per eliminare il container e i volumi.
+```
+docker-compose down -v
+```
